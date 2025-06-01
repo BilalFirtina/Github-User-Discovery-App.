@@ -1,7 +1,6 @@
 class Storagex {
   static key = "searchedUsers";
-
-  static getSearchUserFromStorage() {
+  static getSearchedUserFromStorage() {
     let users;
     if (localStorage.getItem(this.key) == null) {
       users = [];
@@ -12,22 +11,23 @@ class Storagex {
   }
 
   static checkUser(username) {
-    const users = this.getSearchUserFromStorage();
+    const users = this.getSearchedUserFromStorage();
     if (!users.includes(username)) {
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
-  static addSearchedUserToStorage(username) {
-    const users = this.getSearchUserFromStorage();
+  static addSearchedUsersToStorage(username) {
+    const users = this.getSearchedUserFromStorage();
     if (this.checkUser(username)) {
       users.push(username.trim());
       localStorage.setItem(this.key, JSON.stringify(users));
     }
   }
 
-  static clearAllSearchedUserFromStorage() {
+  static clearAllSearchedUserFromLocalStorage() {
     localStorage.removeItem(this.key);
   }
 }

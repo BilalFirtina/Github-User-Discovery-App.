@@ -3,28 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GitHub Kullanıcı Bulma Uygulaması</title>
+    <link
+      rel="shortcut icon"
+      href="./images/github-brands-solid.svg"
+      type="image/x-icon"
+    />
+    <title>GitHub Uygulaması</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
     <link rel="stylesheet" href="./css/app.css" />
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/content.css" />
     <link rel="stylesheet" href="./css/footer.css" />
+
+    <script src="./js/storage.js" defer></script>
+    <script src="./js/ui.js" defer></script>
+    <script src="./js/github.js" defer></script>
+    <script src="./js/main.js" defer></script>
   </head>
+
   <body>
     <div class="container">
       <div id="header" class="row mt-3">
         <div class="col-sm-12 col-md-4 col-lg-4">
-          <a href="./index.html">
-            <img id="githubLogo" src="./images/github-brands-solid.svg" alt=""
+          <a href="./index.html"
+            ><img id="githublogo" src="./images/github-brands-solid.svg" alt=""
           /></a>
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8 mt-3">
@@ -35,14 +46,14 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
           <form id="searchForm">
             <input
-              id="githubname"
+              id="githubName"
               type="text"
               class="form-control"
-              placeholder="GitHub Kullanıcısı Arayın"
+              placeholder="Kullanıcı ismi giriniz."
             />
             <div class="mt-3">
               <button
-                style="max-width: 75px"
+                style="width: 12%"
                 class="btn btn-primary btn-sm"
                 type="submit"
               >
@@ -50,9 +61,9 @@
               </button>
               <button
                 id="clearButton"
-                style="max-width: 75px"
+                style="width: 12%"
                 class="btn btn-danger btn-sm"
-                type="reset"
+                type="button"
               >
                 Temizle
               </button>
@@ -60,18 +71,18 @@
           </form>
         </div>
       </div>
-      <div id="profileContentDiv" class="row mt-2">
+      <div id="profileContentDiv" class="row mt-3">
         <!-- <div class="col-sm-12 col-md-4 col-lg-4">
           <div id="profileDiv">
             <img
-              class="mb-3"
               id="profilImg"
-              max-width="200"
-              height="200"
+              class="mb-3"
               src="./images/profil.jpeg"
-              alt="foto"
+              width="60%"
+              height="60%"
+              alt="profilePhoto"
             />
-            <hr style="border: 1px solid lightgray; width: 200px" />
+            <hr style="border: 1px solid lightgray; width: 75%" />
             <span>Bilal Fırtına</span>
             <span>Yazılım Geliştirici</span>
           </div>
@@ -79,21 +90,19 @@
         <div class="col-sm-12 col-md-8 col-lg-8">
           <div id="badgeDiv" class="mt-1">
             <button type="button" class="btn btn-primary btn-sm">
-              Takipçi <span class="badge badge-light">4</span></button
-            ><button type="button" class="btn btn-success btn-sm">
-              Takip Edilen <span class="badge badge-light">4</span></button
-            ><button type="button" class="btn btn-secondary btn-sm">
+              Takipçi <span class="badge badge-light">4</span>
+            </button>
+            <button type="button" class="btn btn-success btn-sm">
+              Takip Edilen <span class="badge badge-light">4</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm">
               Repolar <span class="badge badge-light">4</span>
             </button>
           </div>
+
           <div id="infoDiv" class="mt-3">
             <div class="info">
-              <img
-                src="./images/user-solid.svg"
-                width="40"
-                height="40"
-                alt=""
-              />
+              <img src="./images/user-solid.svg" width="40" height="40" />
               <span>Jforce</span>
             </div>
             <div class="info">
@@ -101,31 +110,23 @@
                 src="./images/location-dot-solid.svg"
                 width="40"
                 height="40"
-                alt=""
               />
               <span>İstanbul</span>
             </div>
             <div class="info">
-              <img
-                src="./images/envelope-regular.svg"
-                width="40"
-                height="40"
-                alt=""
-              />
+              <img src="./images/envelope-regular.svg" width="40" height="40" />
               <span>b.firtana@gmail.com</span>
             </div>
-            <div class="info">
-              <a href="#">Raporları Göster</a>
-            </div>
+            <div class="info"><a href="">Repoları Göster</a></div>
           </div>
         </div> -->
       </div>
-      <div id="reposDiv" class="row">
-        <table id="table" class="table table-striped m-3">
+      <div id="reposDiv" class="row mt-3">
+        <table id="table" class="table m-3 table-striped">
           <thead>
             <tr>
               <th scope="col">No</th>
-              <th scope="col">Proje İsmi</th>
+              <th scope="col">Proje ismi</th>
               <th scope="col">Oluşturma Tarihi</th>
             </tr>
           </thead>
@@ -138,55 +139,44 @@
           </tbody>
         </table>
       </div>
-
-      <div id="searchedUserDiv" class="row">
+      <div id="searchedUserDiv" class="row mt-3">
         <div class="col-sm-12 col-md-6 col-lg-6">
           <div id="searchMain" class="m-3">
-            <h5>Son Arananlar</h5>
+            <h4>Son Arananlar</h4>
             <button
-              id="clearAllButton"
+              id="clearButtonAll"
               type="button"
-              class="btn btn-secondary btn-sm ml-3"
+              class="btn btn-sm btn-secondary ml-3"
             >
               Tümünü Temizle
             </button>
           </div>
-          <div>
-            <ul id="searchedUserList" class="list-group m-3">
-              <!-- <li class="list-group-item">Bilal</li> -->
-            </ul>
-          </div>
+          <ul id="searchedUserList" class="list-group m-3">
+            <!-- <li class="list-group-item">Ali</li> -->
+          </ul>
         </div>
-
         <div class="col-sm-12 col-md-6 col-lg-6">
           <div id="todaySentenceDiv">
-            <div class="card" style="border: none">
+            <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Günün Sözü</h5>
                 <p class="card-text">
-                  “Kanunlar örümcek ağına benzer, küçük sinekler ağa takılır
-                  kalır, büyük sinekler ağı deler geçer.”
+                  “Kanunlar örümcek ağı gibidir, zayıflar ağa takılır güçlüler
+                  ağı deler geçer.” (Balzac)
                 </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div id="footer" class="row">
-        <div id="mainDiv" class="col-sm-12 col-md-12 col-lg-12">
-          <h5 class="mt-4">Bizimle İletişime Geçin</h5>
-          <div id="socialMediaDiv">
-            <a href="#"
-              ><i id="instagramLogo" class="fa-brands fa-instagram"></i
-            ></a>
-            <a href="#"
-              ><i id="youtubeLogo" class="fa-brands fa-youtube"></i
-            ></a>
-            <a href="#"
-              ><i id="linkedinLogo" class="fa-brands fa-linkedin-in"></i
-            ></a>
-          </div>
+      <div id="footer" class="row mt-3">
+        <h5 class="mt-3">Bizimle İletişime Geçin</h5>
+        <div id="socialMediaDiv">
+          <a href="#"
+            ><i id="instagramLogo" class="fa-brands fa-square-instagram"></i
+          ></a>
+          <a href="#"><i id="youtubeLogo" class="fa-brands fa-youtube"></i></a>
+          <a href="#"><i id="twitterLogo" class="fa-brands fa-twitter"></i></a>
         </div>
       </div>
     </div>
@@ -206,10 +196,5 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-
-    <script src="./js/storage.js"></script>
-    <script src="./js/ui.js"></script>
-    <script src="./js/github.js"></script>
-    <script src="./js/main.js"></script>
   </body>
 </html>

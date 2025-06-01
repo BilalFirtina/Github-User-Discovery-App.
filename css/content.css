@@ -5,7 +5,6 @@
 }
 #profilImg {
   border-radius: 50%;
-  border: 0.5px solid lightgray;
 }
 #profileDiv {
   border: 1px solid lightgray;
@@ -18,29 +17,20 @@
 .info {
   margin: 10px;
 }
-.btn {
-  margin-right: 5px;
-}
 #reposDiv {
-  margin-top: 10px;
   background-color: white;
   border: 1px solid lightgray;
   padding: 10px;
 }
 #searchedUserDiv {
-  margin-top: 10px;
   background-color: white;
   border: 1px solid lightgray;
   padding: 10px;
-  display: flex;
-  flex-direction: row;
 }
 #searchMain {
   display: flex;
-  flex-direction: row;
 }
 #todaySentenceDiv {
   background-color: white;
-  margin-top: 65px;
-  border: 1px solid lightgray;
+  margin-top: 70px;
 }

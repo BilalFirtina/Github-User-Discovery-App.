@@ -1,45 +1,47 @@
 class UI {
   constructor() {
     this.profileContentDiv = document.querySelector("#profileContentDiv");
-    this.githubNameInput = document.querySelector("#githubname");
+    this.reposDiv = document.querySelector("#reposDiv");
+    this.githubNameInput = document.querySelector("#githubName");
     this.tableContent = document.querySelector("#tableContent");
-    this.table = document.querySelector("#table");
-    this.searchedUserList = document.querySelector("#searchedUserList");
     this.isShowRepo = true;
+    this.searchedUserList = document.querySelector("#searchedUserList");
   }
 
-  fillSearchedUserToUIFromStorage() {
-    const users = Storagex.getSearchUserFromStorage();
-    if (users != null && users.length > 0) {
-      users.forEach((user) => {
+  addSearchedUserToUI(username) {
+    if (Storagex.checkUser(username)) {
+      const li = document.createElement("li");
+      li.classList.add("list-group-item");
+      li.textContent = username;
+      this.searchedUserList.appendChild(li);
+    }
+  }
+
+  fillSearchedUserToUI() {
+    const users = JSON.parse(localStorage.getItem(Storagex.key));
+    if (users.length > 0) {
+      users.forEach((element) => {
         const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = user;
+        li.classList.add("list-group-item");
+        li.textContent = element;
         this.searchedUserList.appendChild(li);
       });
     }
   }
 
-  addsearchedUserToUI(username) {
-    if (Storagex.checkUser(username)) {
-      const li = document.createElement("li");
-      li.className = "list-group-item";
-      li.textContent = username;
-      this.searchedUserList.appendChild(li);
-    }
-  }
   addUserProfileToUI(user) {
+    this.tableContent.innerHTML = "";
     this.profileContentDiv.innerHTML = `<div class="col-sm-12 col-md-4 col-lg-4">
           <div id="profileDiv">
             <img
-              class="mb-3"
               id="profilImg"
-              max-width="200"
-              height="200"
+              class="mb-3"
               src="${user.avatar_url}"
-              alt="foto"
+              width="60%"
+              height="60%"
+              alt="profilePhoto"
             />
-            <hr style="border: 1px solid lightgray; width: 200px" />
+            <hr style="border: 1px solid lightgray; width: 75%" />
             <span>${user.name}</span>
             <span>Yazılım Geliştirici</span>
           </div>
@@ -47,50 +49,38 @@ class UI {
         <div class="col-sm-12 col-md-8 col-lg-8">
           <div id="badgeDiv" class="mt-1">
             <button type="button" class="btn btn-primary btn-sm">
-              Takipçi <span class="badge badge-light">${
-                user.followers
-              }</span></button
-            ><button type="button" class="btn btn-success btn-sm">
+              Takipçi <span class="badge badge-light">${user.followers}</span>
+            </button>
+            <button type="button" class="btn btn-success btn-sm">
               Takip Edilen <span class="badge badge-light">${
                 user.following
-              }</span></button
-            ><button type="button" class="btn btn-secondary btn-sm">
+              }</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm">
               Repolar <span class="badge badge-light">${
                 user.public_repos
               }</span>
             </button>
           </div>
+
           <div id="infoDiv" class="mt-3">
             <div class="info">
-              <img
-                src="./images/user-solid.svg"
-                width="40"
-                height="40"
-                alt=""
-              />
-              <span>${user.company == null ? "" : user.company}</span>
+              <img src="./images/user-solid.svg" width="40" height="40" />
+              <span>${user.company ? user.company : "-"}</span>
             </div>
             <div class="info">
               <img
                 src="./images/location-dot-solid.svg"
                 width="40"
                 height="40"
-                alt=""
               />
-              <span>${user.location == null ? "" : user.location}</span>
+              <span>${user.location ? user.location : "-"}</span>
             </div>
             <div class="info">
-              <img
-                src="./images/envelope-regular.svg"
-                width="40"
-                height="40"
-                alt=""
-              />
-              <span>${user.email == null ? "" : user.email}</span>
+              <img src="./images/envelope-regular.svg" width="40" height="40" />
+              <span>${user.email ? user.email : "-"}</span>
             </div>
-            <div class="info">
-              <a id="showRepo" href="#">Raporları Göster</a>
-            </div>
+            <div class="info"><a id="showRepo" href="#">Repoları Göster</a></div>
           </div>
         </div>`;
   }
@@ -106,16 +96,16 @@ class UI {
 
   showRepos(repos) {
     if (this.isShowRepo) {
-      if (repos != null && repos.length > 0) {
-        let sayac = 1;
-        repos.forEach((repo) => {
-          this.tableContent.innerHTML += `<tr>
-              <th scope="row">${sayac}</th>
-              <td>${repo.name}</td>
-              <td>${repo.created_at}</td>
-            </tr>`;
-          sayac++;
+      if (repos != null && repos.length > 1) {
+        const newRepo = repos.map((repo, index) => {
+          return `<tr>
+         <th scope="row">${index + 1}</th>
+         <td>${repo.name}</td>
+         <td>${repo.created_at}</td>
+       </tr>`;
         });
+        this.tableContent.innerHTML = "";
+        this.tableContent.insertAdjacentHTML("beforeend", newRepo.join(""));
       }
       this.isShowRepo = false;
       this.checkMessage();
@@ -126,7 +116,7 @@ class UI {
     }
   }
 
-  clearSearchedUsers() {
+  clearSearchedUserFromUI() {
     this.searchedUserList.innerHTML = "";
   }
 
